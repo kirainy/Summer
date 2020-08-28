@@ -1,0 +1,83 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+void BuildArray(int n,int ***p)
+{
+	int i;
+	*p=(int **)malloc(n*sizeof(int));
+	for(i=0;i<n;++i)
+	{
+		(*p)[i]=(int *)malloc(n*sizeof(int));
+	}//for
+}//BuildArray，为矩阵分配空间
+
+int **rotatePictureMethod(int **matrix,int n,int flag)
+{
+	int **rotatedMatrix;
+	int i,j;//临时变量
+	
+	BuildArray(n,&rotatedMatrix);//为rotatedMatrix矩阵分配空间
+
+	if(flag==0)
+	{
+		for(i=0;i<n;++i)
+		{
+			for(j=0;j<n;++j)
+			{
+				rotatedMatrix[i][j]=matrix[j][n-i-1];
+			}//for
+		}//for
+	}//if，左旋
+	else if(flag==1)
+	{
+		for(i=0;i<n;++i)
+		{
+			for(j=0;j<n;++j)
+			{
+				rotatedMatrix[i][j]=matrix[n-j-1][i];
+			}//for
+		}//for
+	}//if，右旋
+
+	return rotatedMatrix;
+}//rotatePictureMethod，旋转
+
+int main()
+{
+	int n=0;//矩阵阶数
+	int **matrix,**rotatedMatrix;//rotatedMatrix用来接收返回的数组指针
+	int i,j;//临时变量
+	int flag;//旋转控制
+
+	printf("输入阶数n：");
+	scanf("%d",&n);	//输入阶数
+
+	BuildArray(n,&matrix);//为matrix矩阵分配空间
+
+	printf("输入矩阵matrix:\n");
+	for(i=0;i<n;++i)
+	{
+		for(j=0;j<n;++j)
+		{
+			scanf("%d",&matrix[i][j]);
+		}//for
+	}//for，为matrix矩阵赋值
+	printf("输入旋转控制量flag：");
+	scanf("%d",&flag);//输入旋转控制量
+
+	rotatedMatrix=rotatePictureMethod(matrix,n,flag);
+
+	for(i=0;i<n;++i)
+	{
+		for(j=0;j<n;++j)
+		{
+			printf("%d\t",rotatedMatrix[i][j]);
+		}//for
+		printf("\n");
+	}//for，输出旋转后矩阵
+
+	system("pause");//暂停
+
+	return 0;
+}//main
