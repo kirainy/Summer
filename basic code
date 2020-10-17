@@ -1,1 +1,30 @@
+//求x^n
+include<stdio.h>
+int main()
+{
+    int n,i,x;
+    float s;
+    scanf("%d%d",&x,&n);
+    s=1;
+    if(n>=0){
+    for(i=1;i<=n;i++)
+        s=x*s;}
+    else if(n==0)//因为是判断，所以要用==而不是=
+        s=1;
+    else
+    {
+        int t;
+        t=1;
+        for(i=-1;i>=n;i--){
+            t=t*x;
+            s=1.0/t;
+        }
+    }
+            
+            //s=1.0/(x*s);这个错误真的太考验严谨性了吧！！
+            //比如x=2，n=-1是1/2，但当n=-2时，s=1/2*2=1了！！！！）
 
+    printf("%f\n",s);
+    return 0;
+}
+    
